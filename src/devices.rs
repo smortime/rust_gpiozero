@@ -31,7 +31,6 @@ macro_rules! impl_device {
 pub struct GpioDevice {
     pin: Pin,
     active_state: bool,
-    inactive_state: bool,
 }
 
 macro_rules! impl_gpio_device {
@@ -56,7 +55,6 @@ impl GpioDevice {
                 Ok(pin) => GpioDevice {
                     pin,
                     active_state: true,
-                    inactive_state: false,
                 },
             },
         }
