@@ -67,7 +67,12 @@ macro_rules! impl_events_mixin {
             };
             let timeout = timeout.map(|seconds| Duration::from_millis((seconds * 1000.0) as u64));
             self.pin.set_interrupt(trigger).unwrap();
-            self.pin.poll_interrupt(true, timeout).unwrap();
+            loop {
+                match self.pin.poll_interrupt(true, timeout) {
+                    Ok(_) => break,
+                    Err(_) => continue,
+                };
+            }
         }
     };
 }
